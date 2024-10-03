@@ -1,1 +1,20 @@
-<p>categorias-dashboard-toggle works!</p>
+
+<app-categorias-form (categoriaAgregada)="agregarCategoria($event)"></app-categorias-form>
+
+<div *ngFor="let categoria of categorias; let i = index" [style.border-left]="'5px solid ' + categoria.color" class="categoria">
+  <div class="header">
+    <h2>{{ categoria.nombre }}</h2>
+    <p>{{ categoria.descripcion }}</p>
+    <button (click)="toggleDashboard(i)">
+      {{ mostrarDashboard[i] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
+    </button>
+  </div>
+
+  <div *ngIf="mostrarDashboard[i]" class="dashboard">
+    <app-actividades-form (actividadAgregada)="agregarActividad(i, $event)"></app-actividades-form>
+    <app-actividades-dashboard 
+      [actividades]="categoria.actividades" 
+      (agregarActividad)="agregarActividad(i, $event)">
+    </app-actividades-dashboard>
+  </div>
+</div>

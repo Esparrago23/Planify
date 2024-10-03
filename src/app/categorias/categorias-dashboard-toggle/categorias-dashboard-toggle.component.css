@@ -1,0 +1,19 @@
+.categoria {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-left-width: 5px;
+    background-color: #fafafa;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .dashboard {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #f9f9f9;
+  }

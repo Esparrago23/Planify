@@ -1,1 +1,24 @@
-<p>actividades-dashboard works!</p>
+
+  <div *ngIf="actividades && actividades.length > 0">
+    <h4>Lista de Actividades</h4>
+    <ul>
+      <li *ngFor="let actividad of actividades;let i=index">
+        {{actividad.id}}
+        <strong>{{ actividad.titulo }}</strong> - Prioridad: {{ actividad.prioridad }} - Estado: {{ actividad.estado }}
+        <br>
+        Fecha Inicio: {{ actividad.fechaInicio | date }} - Fecha Fin: {{ actividad.fechaFin | date }}
+        <div>
+          <button (click)="onEliminarActividad(actividad.id)">
+            eliminar
+          </button>
+          <button>
+            editar
+          </button>
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+  <div *ngIf="!actividades || actividades.length === 0">
+    <p>No hay actividades para esta categoría.</p>
+  </div>

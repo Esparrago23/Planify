@@ -1,0 +1,35 @@
+<div>
+    <h3>Agregar Nueva Actividad</h3>
+    <form (ngSubmit)="onAgregarActividad()">
+      <div>
+        <label for="titulo">Título:</label>
+        <input id="titulo" [(ngModel)]="nuevaActividad.titulo" name="titulo" required>
+      </div>
+      <div>
+        <label for="prioridad">Prioridad:</label>
+        <select id="prioridad" [(ngModel)]="nuevaActividad.prioridad" name="prioridad">
+          <option value="Alta">Alta</option>
+          <option value="Media">Media</option>
+          <option value="Baja">Baja</option>
+        </select>
+      </div>
+      <div>
+        <label for="estado">Estado:</label>
+        <select id="estado" [(ngModel)]="nuevaActividad.estado" name="estado">
+          <option value="Pendiente">Pendiente</option>
+          <option value="En Progreso">En Progreso</option>
+          <option value="Completada">Completada</option>
+        </select>
+      </div>
+      <div>
+        <label for="fechaInicio">Fecha Inicio:</label>
+        <input type="date" id="fechaInicio" [(ngModel)]="nuevaActividad.fechaInicio" name="fechaInicio">
+      </div>
+      <div>
+        <label for="fechaFin">Fecha Fin:</label>
+        <input type="date" id="fechaFin" [(ngModel)]="nuevaActividad.fechaFin" name="fechaFin">
+      </div>
+      <button type="submit">Agregar Actividad</button>
+    </form>
+  </div>
+  

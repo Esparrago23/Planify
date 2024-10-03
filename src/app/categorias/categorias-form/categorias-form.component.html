@@ -1,0 +1,24 @@
+<div>
+    <button (click)="toggleFormularioCategorias()">
+      {{ mostrarFormularioCategoria ? 'Cerrar Formulario' : 'Agregar Nueva Categoría' }}
+    </button>
+  </div>
+  <div *ngIf="mostrarFormularioCategoria">
+    <h2>Agregar Nueva Categoría</h2>
+    <form (ngSubmit)="agregarCategoria()">
+      <div>
+        <label for="nombre">Nombre:</label>
+        <input id="nombre" [(ngModel)]="nuevaCategoria.nombre" name="nombre" required>
+      </div>
+      <div>
+        <label for="descripcion">Descripción:</label>
+        <input id="descripcion" [(ngModel)]="nuevaCategoria.descripcion" name="descripcion">
+      </div>
+      <div>
+        <label for="color">Color:</label>
+        <input type="color" id="color" [(ngModel)]="nuevaCategoria.color" name="color">
+      </div>
+      <button type="submit">Agregar Categoría</button>
+    </form>
+  </div>
+  <hr>
