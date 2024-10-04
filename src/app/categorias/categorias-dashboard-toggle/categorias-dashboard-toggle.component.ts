@@ -10,7 +10,7 @@ import { StorageService } from '../../storage.service';
 export class CategoriasDashboardToggleComponent  implements OnInit{
   categorias: Categoria[] = [];
   mostrarDashboard: boolean[] = [];
-
+  editingCategoria: any = null;
   constructor(private storageService: StorageService) { }
  
   ngOnInit(): void {
@@ -56,12 +56,30 @@ export class CategoriasDashboardToggleComponent  implements OnInit{
     this.storageService.guardarDatos('categorias',datosGuardados);
     this.categorias=this.categorias.filter((categoria:any)=> categoria.id_categoria !== index)
   }    
+  editarCategoria(index: number): void {
+    const categoria = this.categorias[index];
+    if (categoria) {
+      this.editingCategoria = { ...categoria }; 
+    }
+  }
+  guardarCambios():void{
+    const datosGuardados = this.storageService.obtenerDatos('categorias');
+    const categoria = datosGuardados.find((cat: any) => cat.id === this.editingCategoria.id_categoria);
+    categoria.nombre = this.editingCategoria.nombre;
+    categoria.descripcion =this.editingCategoria.descripcion;
+    categoria.color=this.editingCategoria.color;
+    this.storageService.guardarDatos('categorias', datosGuardados); 
+    this.categorias = datosGuardados; 
+    this.editingCategoria = null; 
+  }
   agregarActividad(idCategoria: number, actividad: Actividad): void {
     actividad.categoriaId=idCategoria
     this.categorias[idCategoria].actividades.push(actividad);
     this.storageService.guardarDatos('categorias', this.categorias);
   }
-
+  onCancelarEdicion(): void {
+    this.editingCategoria = null;
+  }
   
 }
 
