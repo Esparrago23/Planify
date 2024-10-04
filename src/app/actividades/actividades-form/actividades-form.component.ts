@@ -1,6 +1,5 @@
-import { Component,Output,EventEmitter,Input } from '@angular/core';
+import { Component,Output,EventEmitter } from '@angular/core';
 import { Actividad } from '../../models/actividad';
-import { StorageService } from '../../storage.service';
 @Component({
   selector: 'app-actividades-form',
   templateUrl: './actividades-form.component.html',
