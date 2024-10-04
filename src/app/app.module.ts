@@ -7,20 +7,20 @@ import { CategoriasDashboardToggleComponent } from './categorias/categorias-dash
 import { CategoriasFormComponent } from './categorias/categorias-form/categorias-form.component';
 import { FormsModule } from '@angular/forms';
 import { ActividadesFormComponent } from './actividades/actividades-form/actividades-form.component';
+import { CategoriasModule } from './categorias/categorias.module';
+import { ActividadesModule } from './actividades/actividades.module';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ActividadesDashboardComponent,
-    CategoriasDashboardToggleComponent,
-    CategoriasFormComponent,
-    ActividadesFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    CategoriasModule,
+    ActividadesModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

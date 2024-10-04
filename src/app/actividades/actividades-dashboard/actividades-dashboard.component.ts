@@ -19,10 +19,13 @@ export class ActividadesDashboardComponent {
     }
   }
  
-  onEliminarActividad(index:number): void {
+  onEliminarActividad(id_categoria:number, idAct:number): void {
     const datosGuardados = this.storageService.obtenerDatos('categorias');
-    console.log(datosGuardados)
-    
+    if(datosGuardados&& datosGuardados[id_categoria] && datosGuardados[id_categoria].actividades){
+      datosGuardados[id_categoria].actividades = datosGuardados[id_categoria].actividades.filter((actividad:any)=> actividad.id !== idAct);
+      this.storageService.guardarDatos('categorias',datosGuardados);
+      this.actividades=this.actividades.filter((actividad:any)=>actividad.id!==idAct);
+    }
 
   }
 }
