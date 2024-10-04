@@ -17,13 +17,9 @@ export class CategoriasFormComponent {
 
   agregarCategoria(): void {
     if (this.nuevaCategoria.nombre.trim() !== '') {
-      // Emitir el evento con la nueva categoría
       this.categoriaAgregada.emit(this.nuevaCategoria);
-      
-      // Reiniciar el formulario
       this.nuevaCategoria = new Categoria(0,'','', '#000000');
       
-      // Opcional: ocultar el formulario después de agregar una categoría
       this.mostrarFormularioCategoria = false;
     }
   }
