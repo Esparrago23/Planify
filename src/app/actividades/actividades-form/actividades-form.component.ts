@@ -1,4 +1,4 @@
-import { Component,Output,EventEmitter } from '@angular/core';
+import { Component,Output,EventEmitter,Input } from '@angular/core';
 import { Actividad } from '../../models/actividad';
 import { StorageService } from '../../storage.service';
 @Component({
@@ -7,7 +7,6 @@ import { StorageService } from '../../storage.service';
   styleUrl: './actividades-form.component.css'
 })
 export class ActividadesFormComponent {
-  constructor(private storageService: StorageService) { }
   nuevaActividad: Actividad = new Actividad(
     0,
     '',

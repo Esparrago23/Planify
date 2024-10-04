@@ -8,6 +8,9 @@
     <button (click)="toggleDashboard(i)">
       {{ mostrarDashboard[i] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
     </button>
+    <button (click)="eliminarCategoria(i)"> 
+      Eliminar categoria
+    </button>
   </div>
 
   <div *ngIf="mostrarDashboard[i]" class="dashboard">

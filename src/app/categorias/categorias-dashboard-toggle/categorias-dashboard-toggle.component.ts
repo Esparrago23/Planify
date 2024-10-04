@@ -41,7 +41,7 @@ export class CategoriasDashboardToggleComponent  implements OnInit{
 
   agregarCategoria(nuevaCategoria: Categoria): void {
     this.categorias.push(new Categoria(
-      nuevaCategoria.id_categoria,
+      this.categorias.length,
       nuevaCategoria.nombre,
       nuevaCategoria.descripcion,
       nuevaCategoria.color,
@@ -50,8 +50,14 @@ export class CategoriasDashboardToggleComponent  implements OnInit{
     this.storageService.guardarDatos('categorias', this.categorias);
     this.mostrarDashboard.push(false);
   }
-
+  eliminarCategoria(index:number):void{
+    let datosGuardados = this.storageService.obtenerDatos('categorias');
+    datosGuardados=datosGuardados.filter((categoria:any)=> categoria.id_categoria !== index)
+    this.storageService.guardarDatos('categorias',datosGuardados);
+    this.categorias=this.categorias.filter((categoria:any)=> categoria.id_categoria !== index)
+  }    
   agregarActividad(idCategoria: number, actividad: Actividad): void {
+    actividad.categoriaId=idCategoria
     this.categorias[idCategoria].actividades.push(actividad);
     this.storageService.guardarDatos('categorias', this.categorias);
   }

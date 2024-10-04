@@ -12,12 +12,6 @@ export class ActividadesDashboardComponent {
   @Input() actividades: Actividad[] = [];
   @Output() agregarActividad = new EventEmitter<Actividad>();
   
-  onAgregarActividad(nuevaActividad: Actividad): void {
-    if (nuevaActividad.titulo.trim() !== '') {
-      nuevaActividad.id = Date.now();
-      this.agregarActividad.emit(nuevaActividad);
-    }
-  }
  
   onEliminarActividad(id_categoria:number, idAct:number): void {
     const datosGuardados = this.storageService.obtenerDatos('categorias');
