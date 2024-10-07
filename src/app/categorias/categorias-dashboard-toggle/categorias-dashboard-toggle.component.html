@@ -1,0 +1,47 @@
+
+<app-categorias-form (categoriaAgregada)="agregarCategoria($event)"></app-categorias-form>
+
+<div *ngFor="let categoria of categorias; let i = index" [style.border-left]="'5px solid ' + categoria.color" class="categoria">
+  <div class="header">
+    <h2>{{ categoria.nombre }}</h2>
+    <p>{{ categoria.descripcion }}</p>
+    <button (click)="toggleDashboard(i)">
+      {{ mostrarDashboard[i] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
+    </button>
+    <button (click)="eliminarCategoria(i)"> 
+      Eliminar categoria
+    </button>
+    <button (click)="editarCategoria(i)"> 
+      Editar categoria
+    </button>
+
+  </div>
+
+  <div *ngIf="mostrarDashboard[i]" class="dashboard">
+    <app-actividades-form (actividadAgregada)="agregarActividad(i, $event)"></app-actividades-form>
+    <app-actividades-dashboard 
+      [actividades]="categoria.actividades" 
+      (agregarActividad)="agregarActividad(i, $event)">
+    </app-actividades-dashboard>
+  </div>
+</div>
+
+<div *ngIf="editingCategoria">
+  <h4>Editar Actividad</h4>
+  <form (ngSubmit)="guardarCambios()">
+    <div>
+      <label for="nombre">Nombre:</label>
+      <input id="nombre" [(ngModel)]="editingCategoria.nombre" name="nombre"  >
+    </div>
+    <div>
+      <label for="descripcion">Descripción:</label>
+      <input id="descripcion" [(ngModel)]="editingCategoria.descripcion" name="descripcion">
+    </div>
+    <div>
+      <label for="color">Color:</label>
+      <input type="color" id="color" [(ngModel)]="editingCategoria.color" name="color">
+    </div>
+    <button type="submit">Guardar Cambios</button>
+    <button type="button" (click)="onCancelarEdicion()">Cancelar</button>
+  </form>
+</div>

@@ -1,0 +1,47 @@
+
+  <div *ngIf="actividades && actividades.length > 0">
+    <h4>Lista de Actividades</h4>
+    <ul>
+      <li *ngFor="let actividad of actividades;let i=index">
+        {{actividad.id}}
+        <strong>{{ actividad.titulo }}</strong> - Prioridad: {{ actividad.prioridad }} - Estado: {{ actividad.estado }}
+        <br>
+        Fecha Inicio: {{ actividad.fechaInicio | date }} - Fecha Fin: {{ actividad.fechaFin | date }}
+        <div>
+          <button (click)="onEliminarActividad(actividad.categoriaId,actividad.id)">
+            eliminar
+          </button>
+          <button (click)="onEditarActividad(actividad.categoriaId,actividad.id)">
+            editar
+          </button>
+        </div>
+      </li>
+    </ul>
+    
+  </div>
+  <div *ngIf="!actividades || actividades.length === 0">
+    <p>No hay actividades para esta categoría.</p>
+  </div>
+
+  <div *ngIf="editingActivity">
+    <h4>Editar Actividad</h4>
+    <form (ngSubmit)="onGuardarCambios()">
+      <label for="titulo">Título:</label>
+      <input id="titulo" [(ngModel)]="editingActivity.titulo" name="titulo" required>
+  
+      <label for="prioridad">Prioridad:</label>
+      <input id="prioridad" [(ngModel)]="editingActivity.prioridad" name="prioridad" required>
+  
+      <label for="estado">Estado:</label>
+      <input id="estado" [(ngModel)]="editingActivity.estado" name="estado" required>
+  
+      <label for="fechaInicio">Fecha Inicio:</label>
+      <input id="fechaInicio" [(ngModel)]="editingActivity.fechaInicio" name="fechaInicio" type="date" required>
+  
+      <label for="fechaFin">Fecha Fin:</label>
+      <input id="fechaFin" [(ngModel)]="editingActivity.fechaFin" name="fechaFin" type="date" required>
+  
+      <button type="submit">Guardar Cambios</button>
+      <button type="button" (click)="onCancelarEdicion()">Cancelar</button>
+    </form>
+  </div>
