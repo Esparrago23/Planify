@@ -1,28 +1,25 @@
 
-<app-categorias-form (categoriaAgregada)="agregarCategoria($event)"></app-categorias-form>
+<app-categorias-form (categoriaAgregada)="agregarCategoria($event)" ></app-categorias-form>
 
-<div *ngFor="let categoria of categorias; let i = index" [style.border-left]="'5px solid ' + categoria.color" class="categoria">
+<div *ngFor="let categoria of categorias" [style.border-left]="'5px solid ' + categoria.color" class="categoria">
   <div class="header">
     <h2>{{ categoria.nombre }}</h2>
+    <h3>{{categoria.id}}</h3>
     <p>{{ categoria.descripcion }}</p>
-    <button (click)="toggleDashboard(i)">
-      {{ mostrarDashboard[i] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
+    <button (click)="toggleDashboard(categoria.id)">
+      {{ mostrarDashboard[categoria.id] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
     </button>
-    <button (click)="eliminarCategoria(i)"> 
+    <button (click)="eliminarCategoria(categoria.id)"> 
       Eliminar categoria
     </button>
-    <button (click)="editarCategoria(i)"> 
+    <button (click)="editarCategoria(categoria.id,categoria)"> 
       Editar categoria
     </button>
 
   </div>
 
-  <div *ngIf="mostrarDashboard[i]" class="dashboard">
-    <app-actividades-form (actividadAgregada)="agregarActividad(i, $event)"></app-actividades-form>
-    <app-actividades-dashboard 
-      [actividades]="categoria.actividades" 
-      (agregarActividad)="agregarActividad(i, $event)">
-    </app-actividades-dashboard>
+  <div *ngIf="mostrarDashboard[categoria.id]" class="dashboard">
+    
   </div>
 </div>
 

@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { FormsModule } from '@angular/forms';
 import { CategoriasModule } from './categorias/categorias.module';
 import { ActividadesModule } from './actividades/actividades.module';
+import { HttpClientModule } from '@angular/common/http';
 
 
 @NgModule({
@@ -14,6 +15,7 @@ import { ActividadesModule } from './actividades/actividades.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     FormsModule,
     CategoriasModule,
     ActividadesModule 

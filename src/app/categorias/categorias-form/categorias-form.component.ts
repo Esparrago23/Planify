@@ -8,7 +8,12 @@ import { Categoria } from '../../models/categoria';
 })
 export class CategoriasFormComponent {
   mostrarFormularioCategoria: boolean=false;
-  nuevaCategoria: Categoria = new Categoria(0,'','', '#000000');
+  nuevaCategoria: Categoria ={
+    id:0,
+    nombre:"",
+    descripcion:"",
+    color:"#000000"
+  }
 
   @Output() categoriaAgregada = new EventEmitter<Categoria>();
   toggleFormularioCategorias(): void{
@@ -16,9 +21,15 @@ export class CategoriasFormComponent {
   }
 
   agregarCategoria(): void {
+    
     if (this.nuevaCategoria.nombre.trim() !== '') {
       this.categoriaAgregada.emit(this.nuevaCategoria);
-      this.nuevaCategoria = new Categoria(0,'','', '#000000');
+      this.nuevaCategoria ={
+        id:0,
+        nombre:"",
+        descripcion:"",
+        color:"#000000"
+      }
       
       this.mostrarFormularioCategoria = false;
     }

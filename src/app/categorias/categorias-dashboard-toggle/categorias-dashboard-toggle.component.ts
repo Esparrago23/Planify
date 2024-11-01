@@ -1,4 +1,86 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from '../services/categoria.service';
+import { Categoria } from '../../models/categoria';
+import { Actividad } from '../../models/actividad';
+import { StorageService } from '../../storage.service';
+
+@Component({
+  selector: 'app-categorias-dashboard-toggle',
+  templateUrl: './categorias-dashboard-toggle.component.html',
+  styleUrl: './categorias-dashboard-toggle.component.css'
+})
+
+export class CategoriasDashboardToggleComponent implements OnInit{
+  categorias: Categoria[] =[];
+  mostrarDashboard: boolean[] = [];
+  editingCategoria: any = null;
+  constructor(private categoriasService:CategoriaService,private storageService: StorageService){}
+  ngOnInit(): void {
+      this.cargarCategorias();
+     
+  }
+  cargarCategorias():void{
+    this.categoriasService.getAllCategorias().subscribe(data=>{
+      this.categorias=data;
+    })
+  }
+  toggleDashboard(index: number): void {
+    this.mostrarDashboard[index] = !this.mostrarDashboard[index];
+  }
+  agregarCategoria(nuevaCategoria: Categoria): void {
+    this.categoriasService.createCategoria(nuevaCategoria).subscribe(()=>{
+      this.cargarCategorias();
+    })
+  }
+  
+  eliminarCategoria(index:number):void{
+    console.log(index)
+    this.categoriasService.deleteCategoria(index).subscribe(()=>{
+      this.cargarCategorias();
+    })
+   
+  }    
+  editarCategoria(index: number,categoriaUpdate:Categoria): void {
+    this.editingCategoria={...categoriaUpdate}
+  }
+  guardarCambios():void{
+    this.categoriasService.updateCategoria(this.editingCategoria.id,this.editingCategoria).subscribe(()=>{
+      this.cargarCategorias();
+    })
+    this.editingCategoria = null; 
+  }
+  agregarActividad(idCategoria: number,actividad:Actividad): void {
+    actividad.categoriaId=idCategoria
+    this.storageService.guardarDatos('categorias', this.categorias);
+  }
+  onCancelarEdicion(): void {
+    this.editingCategoria = null;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import { Component,OnInit } from '@angular/core';
 import { Categoria } from '../../models/categoria';
 import { Actividad } from '../../models/actividad';
 import { StorageService } from '../../storage.service';
@@ -82,4 +164,4 @@ export class CategoriasDashboardToggleComponent  implements OnInit{
   }
   
 }
-
+*/
