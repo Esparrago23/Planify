@@ -1,9 +1,10 @@
-export class Recordatorio {
-    constructor(
-      public titulo: string,
-      public fechaHora: Date,
-      public repeticion: string,
-      public estado: string,
-      public notaAdicional: string
-    ) {}
+export interface Recordatorio {
+    id:number,
+     titulo: string,
+     fecha_hora: string;
+     repeticion: string,
+     estado: string,
+     nota_adicional: string,
+     actividad_id: number,
+     correo: string
   }

@@ -1,32 +1,28 @@
-<div>
-    <button (click)="toggleFormularioCategorias()">
-      {{ mostrarFormularioCategoria ? 'Cerrar Formulario' : 'Agregar Nueva Categoría' }}
-    </button>
-  </div>
-  <div *ngIf="mostrarFormularioCategoria">
-    <h2>Agregar Nuevo Recordatorio</h2>
-    <form (ngSubmit)="agregarCategoria()">
-      <div>
-        <label for="titulo">titulo:</label>
-        <input id="titulo" [(ngModel)]="nuevaCategoria.titulo" name="titulo" required>
-      </div>
-      <div>
-        <label for="fechaHora">Descripción:</label>
-        <input id="fechaHora" [(ngModel)]="nuevaCategoria.fechaHora" name="fechaHora">
-      </div>
-      <div>
-        <label for="repeticion">repeticion:</label>
-        <input type="repeticion" id="repeticion" [(ngModel)]="nuevaCategoria.repeticion" name="repeticion">
-      </div>
-      <div>
-        <label for="estado">estado:</label>
-        <input type="estado" id="estado" [(ngModel)]="nuevaCategoria.estado" name="estado">
-      </div>
-      <div>
-        <label for="notaAdicional">notaAdicional:</label>
-        <input type="notaAdicional" id="notaAdicional" [(ngModel)]="nuevaCategoria.notaAdicional" name="notaAdicional">
-      </div>
-      <button type="submit">Agregar Categoría</button>
-    </form>
-  </div>
-  <hr>
+<form (ngSubmit)="createRecordatorio()">
+  <label for="titulo">Título:</label>
+  <input id="titulo" [(ngModel)]="newRecordatorio.titulo" name="titulo" required>
+
+  <label for="fecha_hora">Fecha y Hora:</label>
+  <input type="datetime-local" id="fecha_hora" [(ngModel)]="newRecordatorio.fecha_hora" name="fecha_hora"  required>
+
+  <label for="estado">Estado:</label>
+  <select id="estado" [(ngModel)]="newRecordatorio.estado" name="estado">
+    <option value="activo">Activo</option>
+    <option value="inactivo">Inactivo</option>
+  </select>
+
+  <label for="repeticion">Repetición:</label>
+  <select id="repeticion" [(ngModel)]="newRecordatorio.repeticion" name="repeticion">
+    <option value="diaria">Diaria</option>
+    <option value="semanal">Semanal</option>
+    <option value="mensual">Mensual</option>
+    <option value="anual">Anual</option>
+    <option value="ninguna">Ninguna</option>
+  </select>
+
+ 
+  <label for="nota_adicional">Nota Adicional:</label>
+  <textarea id="nota_adicional" [(ngModel)]="newRecordatorio.nota_adicional" name="nota_adicional"></textarea>
+
+  <button type="submit">Guardar Recordatorio</button>
+</form>

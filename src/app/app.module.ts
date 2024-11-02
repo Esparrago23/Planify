@@ -6,6 +6,9 @@ import { FormsModule } from '@angular/forms';
 import { CategoriasModule } from './categorias/categorias.module';
 import { ActividadesModule } from './actividades/actividades.module';
 import { HttpClientModule } from '@angular/common/http';
+import { AuthModule } from './auth/auth.module';
+import { RecordatoriosModule } from './recordatorios/recordatorios.module';
+import { DatePipe } from '@angular/common';
 
 
 @NgModule({
@@ -18,9 +21,11 @@ import { HttpClientModule } from '@angular/common/http';
     HttpClientModule,
     FormsModule,
     CategoriasModule,
-    ActividadesModule 
+    ActividadesModule,
+    AuthModule,
+    RecordatoriosModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,11 +1,9 @@
-export class Actividad {
-    constructor(
-      public id: number,
-      public titulo: string,
-      public prioridad: string,
-      public estado: string,
-      public fechaInicio: Date,
-      public fechaFin: Date,
-      public categoriaId: number
-    ) {}
-  }
+export interface Actividad {  
+ id: number;
+ titulo: string;
+ prioridad: string;
+ estado: string;
+ fechaInicio: string ;
+ fechaFin: string ;
+ categoria_id: number;
+}

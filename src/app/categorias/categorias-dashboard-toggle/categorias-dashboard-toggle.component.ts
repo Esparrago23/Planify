@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriaService } from '../services/categoria.service';
 import { Categoria } from '../../models/categoria';
 import { Actividad } from '../../models/actividad';
-import { StorageService } from '../../storage.service';
+import { ActividadService } from '../../actividades/services/actividad.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-categorias-dashboard-toggle',
@@ -12,16 +14,24 @@ import { StorageService } from '../../storage.service';
 
 export class CategoriasDashboardToggleComponent implements OnInit{
   categorias: Categoria[] =[];
+  actividades: Actividad[]=[];
   mostrarDashboard: boolean[] = [];
   editingCategoria: any = null;
-  constructor(private categoriasService:CategoriaService,private storageService: StorageService){}
+
+  constructor(private categoriasService:CategoriaService,private actividadesService: ActividadService,private authService: AuthService,private router: Router){}
   ngOnInit(): void {
       this.cargarCategorias();
-     
+      this.cargarActividades();
   }
   cargarCategorias():void{
     this.categoriasService.getAllCategorias().subscribe(data=>{
       this.categorias=data;
+    })
+  }
+  cargarActividades():void{
+    this.actividadesService.getAllActividades().subscribe(data=>{
+      this.actividades=data;
+      console.log(this.actividades)
     })
   }
   toggleDashboard(index: number): void {
@@ -40,7 +50,7 @@ export class CategoriasDashboardToggleComponent implements OnInit{
     })
    
   }    
-  editarCategoria(index: number,categoriaUpdate:Categoria): void {
+  editarCategoria(categoriaUpdate:Categoria): void {
     this.editingCategoria={...categoriaUpdate}
   }
   guardarCambios():void{
@@ -50,12 +60,18 @@ export class CategoriasDashboardToggleComponent implements OnInit{
     this.editingCategoria = null; 
   }
   agregarActividad(idCategoria: number,actividad:Actividad): void {
-    actividad.categoriaId=idCategoria
-    this.storageService.guardarDatos('categorias', this.categorias);
+    actividad.categoria_id=idCategoria;
+    console.log(actividad)
+    this.actividadesService.createActividad(actividad).subscribe(()=>{
+      this.cargarCategorias();
+    })
+    
   }
   onCancelarEdicion(): void {
     this.editingCategoria = null;
   }
+
+ 
 }
 
 

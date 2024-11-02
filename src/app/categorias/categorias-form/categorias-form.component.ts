@@ -21,8 +21,9 @@ export class CategoriasFormComponent {
   }
 
   agregarCategoria(): void {
-    
+
     if (this.nuevaCategoria.nombre.trim() !== '') {
+      console.log(this.nuevaCategoria)
       this.categoriaAgregada.emit(this.nuevaCategoria);
       this.nuevaCategoria ={
         id:0,

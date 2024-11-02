@@ -1,4 +1,16 @@
-<div class="container">
-  <h1>Planificador de Actividades</h1>
-  <app-categorias-dashboard-toggle></app-categorias-dashboard-toggle>
+<router-outlet *ngIf="isLoginRoute()"  >
+</router-outlet>
+<div *ngIf="!isLoginRoute()">
+
+  <button  (click)="logout()">Cerrar sesión</button>
+  <div *ngIf="!isLoginRoute()" class="home">
+    <div class="container">
+      <h1>Planificador de Actividades</h1>
+      <app-categorias-dashboard-toggle></app-categorias-dashboard-toggle>
+    </div>
+    <div class="container-mini">  
+      <app-recordatorios-dashboard></app-recordatorios-dashboard>
+    </div>
+    
+  </div>
 </div>
