@@ -19,6 +19,6 @@ export class AuthLoginComponent {
     );
   }
   navigateToRegister() {
-    this.router.navigate(['register']); 
+    this.router.navigate(['/register']); 
   }
 }

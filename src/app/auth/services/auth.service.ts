@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable,throwError  } from 'rxjs';
 import { tap,catchError } from 'rxjs/operators';
 import { Usuario } from '../../models/usuario';
-
+import { usuario } from '../../models/usuarios';
 @Injectable({
   providedIn: 'root'
 })
@@ -38,5 +38,8 @@ export class AuthService {
 
   clearUser() {
     localStorage.removeItem('user');
+  }
+  getUsuarios(): Observable<usuario[]> {
+    return this.http.get<usuario[]>(`${this.apiUrl}/usuarios`);
   }
 }

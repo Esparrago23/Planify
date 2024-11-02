@@ -5,7 +5,7 @@ import { Actividad } from '../../models/actividad';
 import { ActividadService } from '../../actividades/services/actividad.service';
 import { AuthService } from '../../auth/services/auth.service';
 import { Router } from '@angular/router';
-
+import { usuario} from '../../models/usuarios';
 @Component({
   selector: 'app-categorias-dashboard-toggle',
   templateUrl: './categorias-dashboard-toggle.component.html',
@@ -15,13 +15,17 @@ import { Router } from '@angular/router';
 export class CategoriasDashboardToggleComponent implements OnInit{
   categorias: Categoria[] =[];
   actividades: Actividad[]=[];
+  usuarios: usuario[] = []; 
   mostrarDashboard: boolean[] = [];
   editingCategoria: any = null;
+  user:any=null
 
+  
   constructor(private categoriasService:CategoriaService,private actividadesService: ActividadService,private authService: AuthService,private router: Router){}
   ngOnInit(): void {
       this.cargarCategorias();
       this.cargarActividades();
+      this.cargarUsuarios();
   }
   cargarCategorias():void{
     this.categoriasService.getAllCategorias().subscribe(data=>{
@@ -34,10 +38,19 @@ export class CategoriasDashboardToggleComponent implements OnInit{
       console.log(this.actividades)
     })
   }
+  cargarUsuarios(): void {  
+    this.authService.getUsuarios().subscribe(data => {
+      this.usuarios = data;
+      console.log(this.usuarios)
+    });
+  }
   toggleDashboard(index: number): void {
     this.mostrarDashboard[index] = !this.mostrarDashboard[index];
   }
   agregarCategoria(nuevaCategoria: Categoria): void {
+    this.user=this.getUsuarioIdByNombre()
+    nuevaCategoria.usuario_id=this.user
+
     this.categoriasService.createCategoria(nuevaCategoria).subscribe(()=>{
       this.cargarCategorias();
     })
@@ -69,6 +82,20 @@ export class CategoriasDashboardToggleComponent implements OnInit{
   }
   onCancelarEdicion(): void {
     this.editingCategoria = null;
+  }
+
+  getUsuarioIdByNombre(): number | null {
+    const nombreUsuario = this.authService.getUser()?.nombre_usuario
+    if (nombreUsuario) {
+      const usuarioEncontrado = this.usuarios.find(usuario => usuario.nombre_usuario === nombreUsuario);
+      return usuarioEncontrado ? usuarioEncontrado.id : null; 
+    }
+    return null;
+  }
+
+  compareUsuarioIdWithCategoria(categoria: Categoria): boolean {
+    const usuarioId = this.getUsuarioIdByNombre();
+    return usuarioId !== null && categoria.usuario_id === usuarioId; 
   }
 
  

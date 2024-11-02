@@ -3,4 +3,5 @@ export interface Categoria {
   nombre: string;
   descripcion:string;
   color:string;
+  usuario_id:number
 }

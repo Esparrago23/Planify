@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   styleUrl: './auth-register.component.css'
 })
 export class AuthRegisterComponent {
-  user: Usuario = { id_usuario: 0, nombre: '', correo: '', contrasena: '' };
+  user: Usuario = {  nombre_usuario:'',correo: '', contrasena: '' };
 
   constructor(private authService: AuthService,private router:Router) {}
 

@@ -12,7 +12,8 @@ export class CategoriasFormComponent {
     id:0,
     nombre:"",
     descripcion:"",
-    color:"#000000"
+    color:"#000000",
+    usuario_id:0
   }
 
   @Output() categoriaAgregada = new EventEmitter<Categoria>();
@@ -29,7 +30,8 @@ export class CategoriasFormComponent {
         id:0,
         nombre:"",
         descripcion:"",
-        color:"#000000"
+        color:"#000000",
+        usuario_id:0
       }
       
       this.mostrarFormularioCategoria = false;
