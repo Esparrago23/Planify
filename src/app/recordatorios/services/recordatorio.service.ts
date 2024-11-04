@@ -7,7 +7,7 @@ import { Recordatorio } from '../../models/recordatorio';
   providedIn: 'root'
 })
 export class RecordatorioService {
-  private apiUrl = 'http://localhost:8000/recordatorios';
+  private apiUrl = 'http://3.228.179.128:8000:8000/recordatorios';
 
   constructor(private http: HttpClient) {}
 

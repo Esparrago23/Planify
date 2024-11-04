@@ -6,7 +6,7 @@ import { Actividad } from '../../models/actividad';
   providedIn: 'root'
 })
 export class ActividadService {
-  url_base: string = "http://127.0.0.1:8000/actividades/"
+  url_base: string = "http://3.228.179.128:8000/actividades/"
 
   constructor(private _http: HttpClient) { }
 

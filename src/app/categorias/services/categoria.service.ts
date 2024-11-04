@@ -6,7 +6,7 @@ import { Categoria } from '../../models/categoria';
   providedIn: 'root'
 })
 export class CategoriaService {
-  url_base: string = "http://127.0.0.1:8000/categorias/"
+  url_base: string = "http://3.228.179.128:8000/categorias/"
 
   constructor(private _http: HttpClient) { }
 

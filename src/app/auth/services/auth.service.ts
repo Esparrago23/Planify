@@ -8,7 +8,7 @@ import { usuario } from '../../models/usuarios';
   providedIn: 'root'
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:8000';
+  private apiUrl = 'http://3.228.179.128:8000';
 
   constructor(private http: HttpClient) {}
 
