@@ -1,4 +1,129 @@
-import { Component,OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { CategoriaService } from '../services/categoria.service';
+import { Categoria } from '../../models/categoria';
+import { Actividad } from '../../models/actividad';
+import { ActividadService } from '../../actividades/services/actividad.service';
+import { AuthService } from '../../auth/services/auth.service';
+import { Router } from '@angular/router';
+import { usuario} from '../../models/usuarios';
+@Component({
+  selector: 'app-categorias-dashboard-toggle',
+  templateUrl: './categorias-dashboard-toggle.component.html',
+  styleUrl: './categorias-dashboard-toggle.component.css'
+})
+
+export class CategoriasDashboardToggleComponent implements OnInit{
+  categorias: Categoria[] =[];
+  actividades: Actividad[]=[];
+  usuarios: usuario[] = []; 
+  mostrarDashboard: boolean[] = [];
+  editingCategoria: any = null;
+  user:any=null
+
+  
+  constructor(private categoriasService:CategoriaService,private actividadesService: ActividadService,private authService: AuthService,private router: Router){}
+  ngOnInit(): void {
+      this.cargarCategorias();
+      this.cargarActividades();
+      this.cargarUsuarios();
+  }
+  cargarCategorias():void{
+    this.categoriasService.getAllCategorias().subscribe(data=>{
+      this.categorias=data;
+    })
+  }
+  cargarActividades():void{
+    this.actividadesService.getAllActividades().subscribe(data=>{
+      this.actividades=data;
+      console.log(this.actividades)
+    })
+  }
+  cargarUsuarios(): void {  
+    this.authService.getUsuarios().subscribe(data => {
+      this.usuarios = data;
+      console.log(this.usuarios)
+    });
+  }
+  toggleDashboard(index: number): void {
+    this.mostrarDashboard[index] = !this.mostrarDashboard[index];
+  }
+  agregarCategoria(nuevaCategoria: Categoria): void {
+    this.user=this.getUsuarioIdByNombre()
+    nuevaCategoria.usuario_id=this.user
+
+    this.categoriasService.createCategoria(nuevaCategoria).subscribe(()=>{
+      this.cargarCategorias();
+    })
+  }
+  
+  eliminarCategoria(index:number):void{
+    console.log(index)
+    this.categoriasService.deleteCategoria(index).subscribe(()=>{
+      this.cargarCategorias();
+    })
+   
+  }    
+  editarCategoria(categoriaUpdate:Categoria): void {
+    this.editingCategoria={...categoriaUpdate}
+  }
+  guardarCambios():void{
+    this.categoriasService.updateCategoria(this.editingCategoria.id,this.editingCategoria).subscribe(()=>{
+      this.cargarCategorias();
+    })
+    this.editingCategoria = null; 
+  }
+  agregarActividad(idCategoria: number,actividad:Actividad): void {
+    actividad.categoria_id=idCategoria;
+    console.log(actividad)
+    this.actividadesService.createActividad(actividad).subscribe(()=>{
+      this.cargarCategorias();
+    })
+    
+  }
+  onCancelarEdicion(): void {
+    this.editingCategoria = null;
+  }
+
+  getUsuarioIdByNombre(): number | null {
+    const nombreUsuario = this.authService.getUser()?.nombre_usuario
+    if (nombreUsuario) {
+      const usuarioEncontrado = this.usuarios.find(usuario => usuario.nombre_usuario === nombreUsuario);
+      return usuarioEncontrado ? usuarioEncontrado.id : null; 
+    }
+    return null;
+  }
+
+  compareUsuarioIdWithCategoria(categoria: Categoria): boolean {
+    const usuarioId = this.getUsuarioIdByNombre();
+    return usuarioId !== null && categoria.usuario_id === usuarioId; 
+  }
+
+ 
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*import { Component,OnInit } from '@angular/core';
 import { Categoria } from '../../models/categoria';
 import { Actividad } from '../../models/actividad';
 import { StorageService } from '../../storage.service';
@@ -82,4 +207,4 @@ export class CategoriasDashboardToggleComponent  implements OnInit{
   }
   
 }
-
+*/

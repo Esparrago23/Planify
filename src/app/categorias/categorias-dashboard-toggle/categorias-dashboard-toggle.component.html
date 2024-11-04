@@ -1,28 +1,33 @@
 
-<app-categorias-form (categoriaAgregada)="agregarCategoria($event)"></app-categorias-form>
 
-<div *ngFor="let categoria of categorias; let i = index" [style.border-left]="'5px solid ' + categoria.color" class="categoria">
-  <div class="header">
-    <h2>{{ categoria.nombre }}</h2>
+<app-categorias-form (categoriaAgregada)="agregarCategoria($event)" ></app-categorias-form>
+<div *ngFor="let categoria of categorias" >
+  <div *ngIf="compareUsuarioIdWithCategoria(categoria)" [style.border-left]="'5px solid ' + categoria.color" class="categoria">
+  <div  class="header">
+
+      <h2>{{ categoria.nombre }}</h2>
     <p>{{ categoria.descripcion }}</p>
-    <button (click)="toggleDashboard(i)">
-      {{ mostrarDashboard[i] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
-    </button>
-    <button (click)="eliminarCategoria(i)"> 
-      Eliminar categoria
-    </button>
-    <button (click)="editarCategoria(i)"> 
-      Editar categoria
-    </button>
 
+      <button (click)="toggleDashboard(categoria.id)">
+        {{ mostrarDashboard[categoria.id] ? 'Ocultar Actividades' : 'Mostrar Actividades' }}
+      </button>
+      <button (click)="eliminarCategoria(categoria.id)"> 
+        Eliminar categoria
+      </button>
+      <button (click)="editarCategoria(categoria)"> 
+        Editar categoria
+      </button>
+      
+    </div>
   </div>
 
-  <div *ngIf="mostrarDashboard[i]" class="dashboard">
-    <app-actividades-form (actividadAgregada)="agregarActividad(i, $event)"></app-actividades-form>
-    <app-actividades-dashboard 
-      [actividades]="categoria.actividades" 
-      (agregarActividad)="agregarActividad(i, $event)">
-    </app-actividades-dashboard>
+      
+      <div *ngIf="mostrarDashboard[categoria.id]" class="dashboard">
+        <app-actividades-form (actividadAgregada)="agregarActividad(categoria.id,$event)"></app-actividades-form>
+        <app-actividades-dashboard
+        [categoriaId]="categoria.id">
+      </app-actividades-dashboard>
+      
   </div>
 </div>
 

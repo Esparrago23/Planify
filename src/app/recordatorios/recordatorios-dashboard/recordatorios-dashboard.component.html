@@ -1,0 +1,22 @@
+<div class="container">
+
+    <h1>Recordatorios</h1>
+    <button (click)="toggleFormulario()">
+        {{ mostrarFormulario ? 'Ocultar Formulario' : 'Agregar Recordatorio' }}
+    </button>
+    
+    <div *ngIf="mostrarFormulario">
+        <app-recordatorios-forms 
+        [recordatorio]="recordatorioParaEditar" 
+        (recordatorioCreado)="onRecordatorioCreado($event)">
+    </app-recordatorios-forms>
+</div>
+
+<ul>
+    <li *ngFor="let recordatorio of recordatorios">
+        {{ recordatorio.titulo }} - {{ recordatorio.fecha_hora }} - {{ recordatorio.estado }}
+        <button (click)="editRecordatorio(recordatorio)">Editar</button>
+        <button (click)="deleteRecordatorio(recordatorio.id)">Eliminar</button>
+    </li>
+</ul>
+</div>

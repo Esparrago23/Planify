@@ -1,0 +1,15 @@
+<div class="login">
+  <h2>Iniciar Sesión</h2>
+  <form (ngSubmit)="login()" >
+    <input name="nombre_usuario"  [(ngModel)]="credentials.nombre_usuario" placeholder="nombre de usuario" required>
+    <input name="email" type="email" [(ngModel)]="credentials.correo" placeholder="Correo" required>
+    <input name="contraseña" type="password" [(ngModel)]="credentials.contrasena" placeholder="Contraseña" required>
+    <div class="container-buttons">
+      <button type="submit">Ingresar</button>
+      <button (click)="navigateToRegister()">Registrar</button>
+    </div>
+  </form>
+</div>
+
+
+

@@ -6,29 +6,29 @@ import { Actividad } from '../../models/actividad';
   styleUrl: './actividades-form.component.css'
 })
 export class ActividadesFormComponent {
-  nuevaActividad: Actividad = new Actividad(
-    0,
-    '',
-    'Media',
-    'Pendiente',
-    new Date(),
-    new Date(),
-    0
-  );
+  nuevaActividad: Actividad={
+    id:0,
+    titulo:'',
+    prioridad:'media',
+    estado:'pendiente',
+    fechaInicio: "",
+    fechaFin: "",
+    categoria_id:0
+  };
   @Output() actividadAgregada  = new EventEmitter<Actividad>();
 
   onAgregarActividad(): void {
     if (this.nuevaActividad.titulo.trim() !== '') {
       this.actividadAgregada.emit(this.nuevaActividad);
-      this.nuevaActividad = new Actividad(
-        this.nuevaActividad.id+1,
-        '',
-        'Media',
-        'Pendiente',
-        new Date(),
-        new Date(),
-        0
-      );
+      this.nuevaActividad = {
+        id:0,
+        titulo:'',
+        prioridad:'media',
+        estado:'pendiente',
+        fechaInicio: "",
+        fechaFin: "",
+        categoria_id:0
+      };
     }
   }
 }
